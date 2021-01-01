@@ -1288,7 +1288,7 @@ a {
     /* Custom */
 
     .carousel-item {
-      height: 600px;
+      height: 100%;
     }
     
     .carousel-item.img {
@@ -1304,4 +1304,7 @@ a {
     .servicesLinks:hover{
       text-decoration: none;
       color: #000;
+    }
+    .bg-img{
+      background-image: url('../images/bg/bg.jpg')
     }
