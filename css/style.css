@@ -1308,3 +1308,7 @@ a {
     .bg-img{
       background-image: url('../images/bg/bg.jpg')
     }
+
+    .item{
+      border: 1px solid rgba(0, 0, 0, 0.3);
+    }
