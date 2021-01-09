@@ -11,6 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+//Auth::routes();
+
+Route::group(['middleware'=> ['auth']], function(){
+    Route::get('/test', function () {
+        return view('test');
+    });
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/welcome', function () {
+        return view('welcome');
+    });
+
 });
+
+
+Route::get('/', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login.post');
+Route::get('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
