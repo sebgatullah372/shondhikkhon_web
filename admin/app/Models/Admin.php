@@ -35,5 +35,11 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected  $appends = ['full_name'];
+
+    protected function getFullNameAttribute(){
+        return $this->first_name." ".$this->last_name;
+    }
+
 
 }
