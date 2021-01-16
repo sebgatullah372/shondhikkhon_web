@@ -89,9 +89,15 @@ class GalleryController extends Controller
         $request->validate([
             'name' => 'required|max:190',
             'cover_photo' => 'required|image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1400',
-            'image_location' => 'image|mimes:jpeg,jpg,png|max:3072'
+            'image_location.*' => 'image|mimes:jpeg,jpg,png|max:3072'
         ],
-            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1400px']);
+            [
+                'cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1400px',
+                'image_location.*.image' => 'File must be an image',
+                'image_location.*.mimes' => 'Please upload jpeg, jpg, png files only',
+                'image_location.*.max' => 'The maximum limit of the image file is 3 MB'
+
+            ]);
 
         dd(1);
     }

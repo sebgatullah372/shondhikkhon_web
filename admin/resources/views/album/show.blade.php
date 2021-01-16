@@ -24,7 +24,16 @@
         <div class="jumbotron jumbotron-fluid">
 
             <div class="container">
-
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <h5>Error List</h5>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="info-box">
@@ -46,7 +55,7 @@
                     </div>
                     <div class="col-sm-2 mb-2">
                         <button type="button" class="btn btn-info btn-block" data-toggle="modal"
-                                data-target="#galleryCreateModal"><i class="fa fa-plus"></i> Add New
+                                data-target="#galleryCreateModal"><i class="fa fa-plus"></i> Create New
                             Gallery
                         </button>
                     </div>
@@ -94,6 +103,8 @@
                           enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body" id="galleryCreateModalBody">
+
+
                             <div class="row">
                                 <div class="col-sm-12">
                                     <!-- text input -->
@@ -158,21 +169,19 @@
                                             <label class="custom-file-label" for="gallery_images">Choose Gallery
                                                 Images</label>
                                         </div>
-                                        @error('image_location') <span
-                                            class="text-danger float-right">{{$errors->first('image_location') }}</span> @enderror
                                     </div>
                                 </div>
                             </div>
-{{--                            <div class="row" id="previewGalleryImageSection">--}}
 
-{{--                            </div>--}}
+{{--                            Preview gallery image section appends here--}}
+
                             <input type="hidden" name="remove_list" id="removeList" />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default float-right"
                                     data-dismiss="modal">Close
                             </button>
-                            <button type="submit" class="btn btn-info float-right">Create</button>
+                            <button type="submit" class="btn btn-info float-right" id="galleryCreateFormSubmitBtn">Create</button>
                         </div>
                     </form>
                 </div>
@@ -201,13 +210,14 @@
         window.currentActiveGalleryImageInputCol = 0;
         window.previewGalleryImageSectionCount = 0;
         window.previewOutputId = 0;
+        window.filesizeErrorIds = [];
 
         /* Preview Gallery Images*/
         let previewGalleryImages = function (event) {
-
-            $('#gallery_images_input_col_'+ window.currentActiveGalleryImageInputCol).hide();
+             //For multiple select the previous input file is hidden and new input file form is appended here so that the previous file does not get overridden and the user can upload as many photo as they want from different folders as well
+            $('#gallery_images_input_col_'+ window.currentActiveGalleryImageInputCol).hide();//hiding current input file
             ++window.currentActiveGalleryImageInputCol;
-
+            //Appending new input file
             $('#gallery_images_input_row').append('<div class="col-sm-12" id="gallery_images_input_col_' + window.currentActiveGalleryImageInputCol + '">\n' +
                 '            <div class="form-group">\n' +
                 '                <div class="custom-file">\n' +
@@ -221,13 +231,15 @@
                 '         \n' +
                 '            </div>\n' +
                 '        </div>');
+
+            //Every time the user uploads new  bunch of images a new row is created and under that row the columns are appended
             $('#galleryCreateModalBody').append('<div class="row" id="previewGalleryImageSection_'+window.previewGalleryImageSectionCount+'">' +
                 '</div>'
-            );
+            );//Creating rows here
 
 
 
-
+           //Appending the columns here
             let i = 0;
             for (i = 0; i < event.target.files.length; i++) {
 
@@ -240,7 +252,8 @@
                     '                </div>\n' +
                     '                <img class="card-img-top" src="" id="preview_output_' + window.previewOutputId + '" alt="Card image cap">\n' +
                     '\n' +
-                    '                <div class="card-body">\n' +'<span class="mb-1" id="filename_' + window.previewOutputId + '"></span>'+
+                    '                <div class="card-body">\n' +'<span class="mb-1" id="filename_' + window.previewOutputId + '"></span>'+'' +
+                    '<span class="text-danger float-right mb-1" id="filesizeError_'+window.previewOutputId+'"></span>'+
                     '                    <textarea name="image_caption[]" id="image_caption_' + window.previewOutputId + '" rows="3" class="form-control"\n' +
                     '                              placeholder="Write caption here"></textarea>\n' +
                     '                </div>\n' +
@@ -253,7 +266,12 @@
                 output.onload = function () {
                     URL.revokeObjectURL(output.src)
                 };
-                $('#filename_'+window.previewOutputId).html(event.target.files[i].name)
+                $('#filename_'+window.previewOutputId).html(event.target.files[i].name);
+                if(event.target.files[i].size>3072000){
+                    $('#filesizeError_'+window.previewOutputId).html('File size should not be more than 3 MB. Remove the File to continue');
+                    $('#galleryCreateFormSubmitBtn').prop('disabled', true);
+                    window.filesizeErrorIds.push(window.previewOutputId);
+                }
                 ++window.previewOutputId;
             }
             ++window.previewGalleryImageSectionCount;
@@ -267,10 +285,31 @@
             let closeBtnId = event.target.id;
             let closeBtnIdSplit = closeBtnId.split('_');
             //closeBtnIdNumber is the button number of the close button which is clicked. It start from 0.
-            let closeBtnIdNumber = closeBtnIdSplit[closeBtnIdSplit.length - 1];
+            let closeBtnIdNumber = Number(closeBtnIdSplit[closeBtnIdSplit.length - 1]);
             //creating a remove list array which will be used in the backend to identify the particular image which user has cancelled uploading
             removeList.push(closeBtnIdNumber);
             $('#removeList').val(removeList);
+
+            // console.log(typeof closeBtnIdNumber);
+            // console.log(typeof window.filesizeErrorIds[0]);
+            // console.log(window.filesizeErrorIds.find(error_id => error_id == closeBtnIdNumber));
+            // let removefilesizeError = window.filesizeErrorIds.find(error_id => error_id == closeBtnIdNumber);
+            // if(removefilesizeError !== undefined){
+            //    let indexOfCloseBtnIdNumber =  window.filesizeErrorIds.indexOf(closeBtnIdNumber);
+            //    console.log('index', indexOfCloseBtnIdNumber);
+            // }
+            if(window.filesizeErrorIds.includes(closeBtnIdNumber)){
+                console.log(window.filesizeErrorIds)
+                   let indexOfCloseBtnIdNumber =  window.filesizeErrorIds.indexOf(closeBtnIdNumber);
+
+                    if (indexOfCloseBtnIdNumber > -1) {
+                        window.filesizeErrorIds.splice(indexOfCloseBtnIdNumber, 1);
+                    }
+
+                    if(window.filesizeErrorIds.length == 0){
+                        $('#galleryCreateFormSubmitBtn').prop('disabled', false);
+                    }
+            }
 
             $('#preview_image_card_' + closeBtnIdNumber).hide();
 
@@ -299,9 +338,7 @@
                         accept: "image/jpg,image/jpeg,image/png",
                         filesize: 3072000,
                     },
-                    // "image_location[]":{
-                    //     filesize: 3072000
-                    // }
+
                 },
                 messages: {
                     name: {
@@ -309,13 +346,10 @@
                         maxlength: "Album name should be under 30 characters"
                     },
                     cover_photo: {
-                        required: "Cover Photo is required for Album",
+                        required: "Cover Photo is required for Gallery",
                         accept: "Please upload jpg, jpeg or png file",
                         filesize: "File size should be under 3 mb"
                     },
-                    // "image_location[]":{
-                    //     filesize: "File size should be under 3 mb"
-                    // }
 
                 },
 
