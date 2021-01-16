@@ -18,13 +18,6 @@ class Album extends Model
         return $this->belongsTo(Service::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     *
-     */
-    public function admin(){
-        return $this->belongsTo(Admin::class);
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

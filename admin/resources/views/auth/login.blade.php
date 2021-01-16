@@ -16,7 +16,7 @@
                     <label for="email">{{ __('E-Mail Address') }}</label>
                     <div class="input-group mb-3">
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                               name="email" value="{{ old('email') }}" placeholder="Enter admin email" required
+                               name="email" value="arnobkhan372@gmail.com" placeholder="Enter admin email" required
                                autocomplete="email" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -37,7 +37,7 @@
                     <div class="input-group mb-3">
                         <input id="password" type="password"
                                class="form-control @error('password') is-invalid @enderror" name="password"
-                               placeholder="Enter admin password" required
+                               placeholder="Enter admin password" value="123456" required
                                autocomplete="current-password">
                         <div class="input-group-append">
                             <div class="input-group-text">

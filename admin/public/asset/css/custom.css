@@ -1,0 +1,28 @@
+/*form validation*/
+.error {
+    color: red;
+    font-size: 14px;
+    font-weight: 400 !important;
+    float: right;
+}
+
+.form-control.error {
+    border: 1px solid red;
+}
+
+/*form validation end*/
+::-webkit-input-placeholder {
+    font-size: 16px !important;
+}
+
+:-ms-input-placeholder {
+    font-size: 16px !important;
+}
+
+::placeholder {
+    font-size: 16px !important;
+}
+.preview_image{
+    max-height: 300px;
+    max-width: 900px;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Album;
 use App\Models\Gallery;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -81,5 +82,17 @@ class GalleryController extends Controller
     public function destroy(Gallery $gallery)
     {
         //
+    }
+
+    public function storeGalleryByAlbum(Request $request, Album $album){
+        //dd($request->all());
+        $request->validate([
+            'name' => 'required|max:190',
+            'cover_photo' => 'required|image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1400',
+            'image_location' => 'image|mimes:jpeg,jpg,png|max:3072'
+        ],
+            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1400px']);
+
+        dd(1);
     }
 }
