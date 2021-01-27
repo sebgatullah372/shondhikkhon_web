@@ -138,6 +138,7 @@
                                             <label class="custom-file-label" for="cover_photo">Choose Gallery
                                                 Cover</label>
                                         </div>
+                                        <span class="error" id="heightErrorMsg"></span>
                                         @error('cover_photo') <span
                                             class="text-danger float-right">{{$errors->first('cover_photo') }}</span> @enderror
                                     </div>
@@ -173,15 +174,17 @@
                                 </div>
                             </div>
 
-{{--                            Preview gallery image section appends here--}}
+                            {{--                            Preview gallery image section appends here--}}
 
-                            <input type="hidden" name="remove_list" id="removeList" />
+                            <input type="hidden" name="remove_list" id="removeList"/>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default float-right"
                                     data-dismiss="modal">Close
                             </button>
-                            <button type="submit" class="btn btn-info float-right" id="galleryCreateFormSubmitBtn">Create</button>
+                            <button type="submit" class="btn btn-info float-right" id="galleryCreateFormSubmitBtn">
+                                Create
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -203,7 +206,32 @@
             output.src = URL.createObjectURL(event.target.files[0]);
             output.onload = function () {
                 URL.revokeObjectURL(output.src)
+
             };
+
+            img = new Image();
+            img.src = URL.createObjectURL(event.target.files[0]);
+            let imageHeight = 0;
+            img.onload = function(){
+                imageHeight = this.height;
+                if(imageHeight > 1500){
+                    $('#heightErrorMsg').html('Maximum height for the cover image is 1500');
+                    $("#galleryCreateForm").submit(function(e){
+                        //disable form submit
+                        e.preventDefault();
+                    });
+                }else{
+                    $('#heightErrorMsg').empty();
+                    $('#galleryCreateForm').submit( function(e){
+                        e.preventDefault();
+                        //enable form submit
+                        $(this).unbind('submit').submit();
+                    });
+                }
+                URL.revokeObjectURL(img.src)
+            };
+            //img.src = URL.createObjectURL(event.target.files[0]);
+
             $('#preview_output').show()
         };
 
@@ -214,8 +242,8 @@
 
         /* Preview Gallery Images*/
         let previewGalleryImages = function (event) {
-             //For multiple select the previous input file is hidden and new input file form is appended here so that the previous file does not get overridden and the user can upload as many photo as they want from different folders as well
-            $('#gallery_images_input_col_'+ window.currentActiveGalleryImageInputCol).hide();//hiding current input file
+            //For multiple select the previous input file is hidden and new input file form is appended here so that the previous file does not get overridden and the user can upload as many photo as they want from different folders as well
+            $('#gallery_images_input_col_' + window.currentActiveGalleryImageInputCol).hide();//hiding current input file
             ++window.currentActiveGalleryImageInputCol;
             //Appending new input file
             $('#gallery_images_input_row').append('<div class="col-sm-12" id="gallery_images_input_col_' + window.currentActiveGalleryImageInputCol + '">\n' +
@@ -233,17 +261,16 @@
                 '        </div>');
 
             //Every time the user uploads new  bunch of images a new row is created and under that row the columns are appended
-            $('#galleryCreateModalBody').append('<div class="row" id="previewGalleryImageSection_'+window.previewGalleryImageSectionCount+'">' +
+            $('#galleryCreateModalBody').append('<div class="row" id="previewGalleryImageSection_' + window.previewGalleryImageSectionCount + '">' +
                 '</div>'
             );//Creating rows here
 
 
-
-           //Appending the columns here
+            //Appending the columns here
             let i = 0;
             for (i = 0; i < event.target.files.length; i++) {
 
-                $('#previewGalleryImageSection_'+window.previewGalleryImageSectionCount).append('<div class="col-sm-12 col-md-6 col-lg-6" id="preview_image_card_' + window.previewOutputId + '">\n' +
+                $('#previewGalleryImageSection_' + window.previewGalleryImageSectionCount).append('<div class="col-sm-12 col-md-6 col-lg-6" id="preview_image_card_' + window.previewOutputId + '">\n' +
                     '            <div class="card shadow">\n' +
                     '                <div class="float-right">\n' +
                     '                    <button type="button" class="close"  onclick="closeGalleryPreviewCardImage(event)" aria-label="Close">\n' +
@@ -252,8 +279,8 @@
                     '                </div>\n' +
                     '                <img class="card-img-top" src="" id="preview_output_' + window.previewOutputId + '" alt="Card image cap">\n' +
                     '\n' +
-                    '                <div class="card-body">\n' +'<span class="mb-1" id="filename_' + window.previewOutputId + '"></span>'+'' +
-                    '<span class="text-danger float-right mb-1" id="filesizeError_'+window.previewOutputId+'"></span>'+
+                    '                <div class="card-body">\n' + '<span class="mb-1" id="filename_' + window.previewOutputId + '"></span>' + '' +
+                    '<span class="text-danger float-right mb-1" id="filesizeError_' + window.previewOutputId + '"></span>' +
                     '                    <textarea name="image_caption[]" id="image_caption_' + window.previewOutputId + '" rows="3" class="form-control"\n' +
                     '                              placeholder="Write caption here"></textarea>\n' +
                     '                </div>\n' +
@@ -266,9 +293,9 @@
                 output.onload = function () {
                     URL.revokeObjectURL(output.src)
                 };
-                $('#filename_'+window.previewOutputId).html(event.target.files[i].name);
-                if(event.target.files[i].size>3072000){
-                    $('#filesizeError_'+window.previewOutputId).html('File size should not be more than 3 MB. Remove the File to continue');
+                $('#filename_' + window.previewOutputId).html(event.target.files[i].name);
+                if (event.target.files[i].size > 3072000) {
+                    $('#filesizeError_' + window.previewOutputId).html('File size should not be more than 3 MB. Remove the File to continue');
                     $('#galleryCreateFormSubmitBtn').prop('disabled', true);
                     window.filesizeErrorIds.push(window.previewOutputId);
                 }
@@ -278,10 +305,9 @@
         }
 
 
-
         var removeList = [];
 
-        function closeGalleryPreviewCardImage(event){
+        function closeGalleryPreviewCardImage(event) {
             let closeBtnId = event.target.id;
             let closeBtnIdSplit = closeBtnId.split('_');
             //closeBtnIdNumber is the button number of the close button which is clicked. It start from 0.
@@ -298,17 +324,17 @@
             //    let indexOfCloseBtnIdNumber =  window.filesizeErrorIds.indexOf(closeBtnIdNumber);
             //    console.log('index', indexOfCloseBtnIdNumber);
             // }
-            if(window.filesizeErrorIds.includes(closeBtnIdNumber)){
-                console.log(window.filesizeErrorIds)
-                   let indexOfCloseBtnIdNumber =  window.filesizeErrorIds.indexOf(closeBtnIdNumber);
+            if (window.filesizeErrorIds.includes(closeBtnIdNumber)) {
 
-                    if (indexOfCloseBtnIdNumber > -1) {
-                        window.filesizeErrorIds.splice(indexOfCloseBtnIdNumber, 1);
-                    }
+                let indexOfCloseBtnIdNumber = window.filesizeErrorIds.indexOf(closeBtnIdNumber);
 
-                    if(window.filesizeErrorIds.length == 0){
-                        $('#galleryCreateFormSubmitBtn').prop('disabled', false);
-                    }
+                if (indexOfCloseBtnIdNumber > -1) {
+                    window.filesizeErrorIds.splice(indexOfCloseBtnIdNumber, 1);
+                }
+
+                if (window.filesizeErrorIds.length == 0) {
+                    $('#galleryCreateFormSubmitBtn').prop('disabled', false);
+                }
             }
 
             $('#preview_image_card_' + closeBtnIdNumber).hide();
@@ -319,12 +345,53 @@
             var minsize = 1000; // min 1kb
             let file_size = element.files[0].size;
 
-            if ((arg > minsize) && (file_size <= arg)) {
-                return true;
-            } else {
-                return false;
-            }
+            return (arg > minsize) && (file_size <= arg);
         });
+        //window.flag = 3;
+        // var flag = 3;
+        // var _URL = window.URL || window.webkitURL;
+        // $.validator.addMethod('max_height', function (value, element, arg) {
+        //
+        //     var file, img;
+        //     if ((file = element.files[0])) {
+        //
+        //         img = new Image();
+        //         var objectUrl = _URL.createObjectURL(file);
+        //         img.onload = function () {
+        //             //alert(this.width + " " + this.height);
+        //             //console.log(this.height);
+        //             var imageHeight = this.height;
+        //
+        //             _URL.revokeObjectURL(objectUrl);
+        //
+        //             //return imageHeight;
+        //             if(imageHeight <= 1500){
+        //                 console.log("valid",  flag)
+        //                 flag = 0;
+        //             }else{
+        //                 console.log("invalid", flag)
+        //                flag = 1;
+        //             }
+        //
+        //         };
+        //         img.src = objectUrl;
+        //
+        //         console.log("Out ",flag);
+        //         if(flag == 0){
+        //             return false;
+        //         }else{
+        //             return true;
+        //         }
+        //        // return imageHeight <= arg;
+        //
+        //     }
+        //
+        //     // if ((arg > minsize) && (file_size <= arg)) {
+        //     //     return true;
+        //     // } else {
+        //     //     return false;
+        //     // }
+        // });
 
         $(document).ready(function () {
             $('#galleryCreateForm').validate({
@@ -337,6 +404,7 @@
                         required: true,
                         accept: "image/jpg,image/jpeg,image/png",
                         filesize: 3072000,
+                        //max_height: 1500,
                     },
 
                 },
@@ -348,7 +416,8 @@
                     cover_photo: {
                         required: "Cover Photo is required for Gallery",
                         accept: "Please upload jpg, jpeg or png file",
-                        filesize: "File size should be under 3 mb"
+                        filesize: "File size should be under 3 mb",
+                        //max_height: "Maximum height for the cover photo is 1500"
                     },
 
                 },
