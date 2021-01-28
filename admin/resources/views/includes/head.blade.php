@@ -24,6 +24,8 @@
     <!-- Sweetalert2 -->
     <link rel="stylesheet" href="{{asset('asset/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+    <!--Light Gallery-->
+    <link rel="stylesheet" href="{{asset('asset/css/lightgallery.min.css')}}"/>
     <!--Custom CSS -->
     <link rel="stylesheet" href="{{asset('asset/css/custom.css')}}">
 </head>

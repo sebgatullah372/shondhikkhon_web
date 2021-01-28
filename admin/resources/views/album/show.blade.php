@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Album</h1>
+                    <h1 class="m-0 text-dark">Album Details</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -74,8 +74,10 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="float-right">
-                                        <a href="#" class="btn btn-success">View</a>
-                                        <a href="#" class="btn btn-primary">Edit </a>
+                                        <a href="{{route('galleries.show', $albumGallery->id)}}"
+                                           class="btn btn-success">View</a>
+                                        <a href="{{route('galleries.edit', $albumGallery->id)}}"
+                                           class="btn btn-primary">Edit </a>
                                         <a href="#" class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
@@ -212,17 +214,17 @@
             img = new Image();
             img.src = URL.createObjectURL(event.target.files[0]);
             let imageHeight = 0;
-            img.onload = function(){
+            img.onload = function () {
                 imageHeight = this.height;
-                if(imageHeight > 1500){
+                if (imageHeight > 1500) {
                     $('#heightErrorMsg').html('Maximum height for the cover image is 1500');
-                    $("#galleryCreateForm").submit(function(e){
+                    $("#galleryCreateForm").submit(function (e) {
                         //disable form submit
                         e.preventDefault();
                     });
-                }else{
+                } else {
                     $('#heightErrorMsg').empty();
-                    $('#galleryCreateForm').submit( function(e){
+                    $('#galleryCreateForm').submit(function (e) {
                         e.preventDefault();
                         //enable form submit
                         $(this).unbind('submit').submit();
@@ -230,7 +232,7 @@
                 }
                 URL.revokeObjectURL(img.src)
             };
-            //img.src = URL.createObjectURL(event.target.files[0]);
+
 
             $('#preview_output').show()
         };

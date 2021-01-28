@@ -43,9 +43,7 @@ class AlbumController extends Controller
 
 
         $data = $request->except('_token');
-        if($request->has('show_on_home')){
-            $data['show_on_home'] = 1;
-        }
+
         if ($request->hasFile('cover_photo')) {
             $image = $request->file('cover_photo');
 //            $image_resize = Image::make($image->getRealPath());
@@ -100,20 +98,19 @@ class AlbumController extends Controller
     public function update(Request $request, Album $album)
     {
 
-
         $request->validate([
             'name' => 'required|max:190',
-            'cover_photo' => 'image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1400'
+            'cover_photo' => 'image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1500'
         ],
-            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1400px']);
+            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1500px']);
 
 
         $data = $request->except('_token', '_method');
-        if($request->has('show_on_home')){
-            $data['show_on_home'] = 1;
-        }else{
-            $data['show_on_home'] = 0;
-        }
+//        if($request->has('show_on_home')){
+//            $data['show_on_home'] = 1;
+//        }else{
+//            $data['show_on_home'] = 0;
+//        }
         if ($request->hasFile('cover_photo')) {
             $image = $request->file('cover_photo');
             $file_path = public_path($album->cover_photo);

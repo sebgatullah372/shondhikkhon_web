@@ -22,7 +22,18 @@
 ::placeholder {
     font-size: 16px !important;
 }
-.preview_image{
-    max-height: 300px;
-    max-width: 900px;
+
+/**Media queries**/
+@media screen and (max-width: 480px) {
+    .preview_image{
+        max-height: 300px;
+        max-width: 250px;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    .preview_image{
+        max-height: 300px;
+        max-width: 450px;
+    }
 }

@@ -16,6 +16,8 @@
 <!-- overlayScrollbars -->
 <script src="{{asset('asset/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<!--Light gallery-->
+<script src="{{asset('asset/js/lightgallery-all.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('asset/js/adminlte.js')}}"></script>
 

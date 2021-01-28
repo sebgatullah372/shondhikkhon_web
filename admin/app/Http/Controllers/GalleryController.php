@@ -46,12 +46,14 @@ class GalleryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Gallery $gallery
-     * @return \Illuminate\Http\Response
+     * @param Gallery $gallery
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      */
     public function show(Gallery $gallery)
     {
-        //
+        $gallery->load('album','galleryImages');
+        return view('gallery.show', compact('gallery'));
     }
 
     /**
@@ -87,6 +89,14 @@ class GalleryController extends Controller
     {
         //
     }
+
+    /**
+     * stores the gallery and the images by album
+     * @param Request $request
+     * @param Album $album
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     */
 
     public function storeGalleryByAlbum(Request $request, Album $album)
     {

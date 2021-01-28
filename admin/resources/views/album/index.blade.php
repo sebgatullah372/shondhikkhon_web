@@ -30,8 +30,7 @@
                             <span class="info-box-icon bg-warning"><i class="fa fa-image"></i></span>
 
                             <div class="info-box-content">
-                                <span class="info-box-text">Total Number of Albums</span>
-                                <span class="info-box-number">{{$albums->count()}}</span>
+                                <span> <b>Total Number of Albums:</b> {{$albums->count()}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
