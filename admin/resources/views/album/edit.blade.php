@@ -36,7 +36,7 @@
                                 <div class="col-sm-12">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label for="name">Album Name</label>
+                                        <label for="edit_name">Album Name</label>
                                         <input type="text"
                                                class="form-control @error('name') is-invalid @enderror"
                                                placeholder="Enter Album Name"
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="description">Album Description</label>
+                                        <label for="edit_description">Album Description</label>
                                         <textarea name="description" id="edit_description" rows="3" class="form-control"
                                                   placeholder="Enter description / optional">{{$album->description}}</textarea>
                                     </div>
@@ -59,7 +59,7 @@
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label for="service">Select Corresponding Service for this Album</label>
-                                        <select id="service" class="custom-select">
+                                        <select id="service" class="custom-select" name="service">
                                             <option selected>Choose Service</option>
                                             @foreach($services as $service)
                                                 <option

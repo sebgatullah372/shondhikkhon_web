@@ -106,11 +106,7 @@ class AlbumController extends Controller
 
 
         $data = $request->except('_token', '_method');
-//        if($request->has('show_on_home')){
-//            $data['show_on_home'] = 1;
-//        }else{
-//            $data['show_on_home'] = 0;
-//        }
+
         if ($request->hasFile('cover_photo')) {
             $image = $request->file('cover_photo');
             $file_path = public_path($album->cover_photo);

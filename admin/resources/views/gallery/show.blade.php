@@ -25,20 +25,20 @@
     <section class="content">
         <div class="container">
 
-            <div class="row">
-                <div class="col-sm-10">
+            <div class="row no-gutters">
+                <div class="col-md-9 col-sm-10">
                     <div class="info-box">
                         <span class="info-box-icon bg-warning"><i class="fa fa-image"></i></span>
 
                         <div class="info-box-content">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-3 col-sm-12 mb-2">
                                     <span> <b>Gallery Name: </b> {{$gallery->name}}</span>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-5 col-sm-12 mb-2">
                                     <span> <b>Total Number of Image in Gallery: </b> {{$gallery->galleryImages->count()}}</span>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-4 col-sm-12 mb-2">
                                     <span> <b>Album Name: </b> {{$gallery->album->name}}</span>
                                 </div>
                             </div>
@@ -47,26 +47,33 @@
                         <!-- /.info-box-content -->
                     </div>
                 </div>
-                <div class="col-sm-2 mb-2">
-                    <button type="button" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Edit Gallery
-                    </button>
+                <div class="col-md-3 col-sm-2 mb-2 pl-3">
+                    <a role="button" href="{{route('galleries.edit', $gallery->id)}}" class="btn btn-info btn-block"><i class="fa fa-plus"></i> Edit Gallery
+                    </a>
                 </div>
             </div>
 
-            <div class="row no-gutters bg-img" id="lightgallery">
+            <div class="row" id="lightgallery">
 
                 @foreach($gallery->galleryImages as $galleryImage)
                     <div
                         class="col-sm-6 item"
                         data-aos="fade"
-                        data-src="{{asset($galleryImage->image_location)}}"
-                    >
-                        <a href="#"
-                        ><img
+                        data-src="{{asset($galleryImage->image_location)}}">
+
+                        <div class="card">
+                            <img
                                 src="{{asset($galleryImage->image_location)}}"
                                 alt="{{$galleryImage->image_caption}}"
-                                class="img-fluid"
-                            /></a>
+                                class="img-fluid gallery-image"/>
+                            <div class="card-body description-box">
+                                @if($galleryImage->image_caption != null)
+                                    <p class="card-text">{{$galleryImage->image_caption}}</p>
+                                @else
+                                    <p class="card-text text-muted">No caption</p>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 @endforeach
             </div>

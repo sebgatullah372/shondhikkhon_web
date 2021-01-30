@@ -64,10 +64,10 @@
                 <div class="row">
                     @foreach($album->galleries as $albumGallery)
                         <div class="col-sm-12 col-md-6 col-lg-4">
-                            <div class="card">
-                                <img class="card-img-top" src="{{asset($albumGallery->cover_photo)}}"
+                            <div class="card" >
+                                <img class="card-img-top cover-image" src="{{asset($albumGallery->cover_photo)}}"
                                      alt="Card image cap">
-                                <div class="card-body">
+                                <div class="card-body description-box">
                                     <h5 class="card-title">{{$albumGallery->name}}</h5>
                                     <p class="card-text">{{$albumGallery->description}}</p>
 
@@ -279,7 +279,7 @@
                     '                        <span aria-hidden="true" id="close_preview_output_' + window.previewOutputId + '">&times;</span>\n' +
                     '                    </button>\n' +
                     '                </div>\n' +
-                    '                <img class="card-img-top" src="" id="preview_output_' + window.previewOutputId + '" alt="Card image cap">\n' +
+                    '                <img class="card-img-top gallery-image" src="" id="preview_output_' + window.previewOutputId + '" alt="Card image cap">\n' +
                     '\n' +
                     '                <div class="card-body">\n' + '<span class="mb-1" id="filename_' + window.previewOutputId + '"></span>' + '' +
                     '<span class="text-danger float-right mb-1" id="filesizeError_' + window.previewOutputId + '"></span>' +
@@ -349,51 +349,6 @@
 
             return (arg > minsize) && (file_size <= arg);
         });
-        //window.flag = 3;
-        // var flag = 3;
-        // var _URL = window.URL || window.webkitURL;
-        // $.validator.addMethod('max_height', function (value, element, arg) {
-        //
-        //     var file, img;
-        //     if ((file = element.files[0])) {
-        //
-        //         img = new Image();
-        //         var objectUrl = _URL.createObjectURL(file);
-        //         img.onload = function () {
-        //             //alert(this.width + " " + this.height);
-        //             //console.log(this.height);
-        //             var imageHeight = this.height;
-        //
-        //             _URL.revokeObjectURL(objectUrl);
-        //
-        //             //return imageHeight;
-        //             if(imageHeight <= 1500){
-        //                 console.log("valid",  flag)
-        //                 flag = 0;
-        //             }else{
-        //                 console.log("invalid", flag)
-        //                flag = 1;
-        //             }
-        //
-        //         };
-        //         img.src = objectUrl;
-        //
-        //         console.log("Out ",flag);
-        //         if(flag == 0){
-        //             return false;
-        //         }else{
-        //             return true;
-        //         }
-        //        // return imageHeight <= arg;
-        //
-        //     }
-        //
-        //     // if ((arg > minsize) && (file_size <= arg)) {
-        //     //     return true;
-        //     // } else {
-        //     //     return false;
-        //     // }
-        // });
 
         $(document).ready(function () {
             $('#galleryCreateForm').validate({
@@ -412,8 +367,8 @@
                 },
                 messages: {
                     name: {
-                        required: "Please enter Album Name",
-                        maxlength: "Album name should be under 30 characters"
+                        required: "Please enter gallery name",
+                        maxlength: "Gallery name should be under 30 characters"
                     },
                     cover_photo: {
                         required: "Cover Photo is required for Gallery",

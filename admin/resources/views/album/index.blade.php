@@ -47,7 +47,7 @@
                     @foreach($albums as $album)
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             <div class="card">
-                                <img class="card-img-top" src="{{asset($album->cover_photo)}}" alt="Card image cap">
+                                <img class="card-img-top cover-image" src="{{asset($album->cover_photo)}}" alt="Card image cap">
                                 <div class="card-body">
                                     <h5 class="card-title">{{$album->name}}</h5>
                                     <p class="card-text">{{$album->description}}</p>
