@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('galleries.index')}}">Gallery</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('galleries.index')}}">Galleries</a></li>
                         <li class="breadcrumb-item active">Gallery Details</li>
                     </ol>
                 </div>

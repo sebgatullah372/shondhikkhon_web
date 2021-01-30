@@ -2,16 +2,16 @@
 @section('title', "Albums")
 @section('content')
 
-    <div class="content-header">
+    <div class="content-header" >
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Album</h1>
+                    <h1 class="m-0 text-dark">Albums</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Album</li>
+                        <li class="breadcrumb-item active">Albums</li>
                     </ol>
                 </div>
             </div>
@@ -131,6 +131,7 @@
                                             <label class="custom-file-label" for="cover_photo">Choose Album
                                                 Cover</label>
                                         </div>
+                                        <span class="error" id="heightErrorMsg"></span>
                                         @error('cover_photo') <span
                                             class="text-danger float-right">{{$errors->first('cover_photo') }}</span> @enderror
                                     </div>
@@ -171,6 +172,28 @@
             output.onload = function () {
                 URL.revokeObjectURL(output.src)
             }
+
+            img = new Image();
+            img.src = URL.createObjectURL(event.target.files[0]);
+            let imageHeight = 0;
+            img.onload = function () {
+                imageHeight = this.height;
+                if (imageHeight > 1500) {
+                    $('#heightErrorMsg').html('Maximum height for the cover image is 1500');
+                    $('#albumCreateForm').submit(function (e) {
+                        //disable form submit
+                        e.preventDefault();
+                    });
+                } else {
+                    $('#heightErrorMsg').empty();
+                    $('#albumCreateForm').submit(function (e) {
+                        e.preventDefault();
+                        //enable form submit
+                        $(this).unbind('submit').submit();
+                    });
+                }
+                URL.revokeObjectURL(img.src)
+            };
             $('#preview_output').show()
         };
 

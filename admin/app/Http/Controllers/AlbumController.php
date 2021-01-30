@@ -36,9 +36,9 @@ class AlbumController extends Controller
 
        $request->validate([
             'name' => 'required|max:190',
-            'cover_photo' => 'required|image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1400'
+            'cover_photo' => 'required|image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1500'
             ],
-            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1400px']);
+            ['cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1500px']);
 
 
 

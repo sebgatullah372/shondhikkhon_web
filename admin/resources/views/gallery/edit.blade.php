@@ -14,7 +14,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('galleries.index')}}">Gallery</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('galleries.index')}}">Galleries</a></li>
                         <li class="breadcrumb-item active">Edit Gallery</li>
                     </ol>
                 </div>
@@ -89,6 +89,8 @@
                                                     value="{{$album->id}}" {{$gallery->album_id == $album->id? "selected":""}}>{{$album->name}}</option>
                                             @endforeach
                                         </select>
+                                        @error('album') <span
+                                            class="text-danger float-right">{{$errors->first('album') }}</span> @enderror
                                     </div>
                                 </div>
                             </div>

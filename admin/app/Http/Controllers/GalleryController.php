@@ -15,31 +15,111 @@ class GalleryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      */
     public function index()
     {
-        //
+        $albums = Album::all();
+        $galleries = Gallery::with('album', 'galleryImages')->get();
+
+        return view('gallery.index', compact('galleries', 'albums'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:190',
+            'album' => 'required',
+            'cover_photo' => 'required|image|mimes:jpeg,jpg,png|max:3072|dimensions:max_height=1500',
+            'image_location.*' => 'image|mimes:jpeg,jpg,png|max:3072'
+        ],
+            [
+                'cover_photo.dimensions' => 'Please upload a landscape image with height not more than 1500px',
+                'image_location.*.image' => 'File must be an image',
+                'image_location.*.mimes' => 'Please upload jpeg, jpg, png files only',
+                'image_location.*.max' => 'The maximum limit of the image file is 3 MB'
+
+            ]
+        );
+
+        //dd($request->all());
+        $newGallery = array();
+
+        $newGallery = [
+            'name' => $request->name,
+            'album_id' => $request->album,
+            'description' => $request->description,
+        ];
+
+        if ($request->has('show_on_home')) {
+            $newGallery['show_on_home'] = 1;
+        }
+
+        $galleryName = Str::snake($newGallery['name']);
+
+        $galleryName = $galleryName . time();
+
+        if ($request->hasFile('cover_photo')) {
+            $image = $request->file('cover_photo');
+            $name = time() . '.' . $image->getClientOriginalExtension(); //getting the extension
+            $image->storePubliclyAs('public/albums/galleries/' . $galleryName . '/cover_photo', $name);
+            $image_path = 'storage/albums/galleries/' . $galleryName . '/cover_photo/' . $name;
+            $newGallery['cover_photo'] = $image_path;
+        }
+
+        $gallery = Gallery::create($newGallery);
+        $newGalleryImage = array();
+        $removeList = $request->remove_list;
+        $removeList = explode(',', $removeList);
+        if ($request->image_location !== null) {
+
+            if ($removeList[0] == "") {
+                //if there is no image to be removed then the array is made empty here. The exploded string of removeList returns "" in the 0 element. So it is removed using array_pop
+                array_pop($removeList);
+
+            }
+
+            for ($i = 0; $i < sizeof($request->image_location); $i++) {
+
+                if ($request->hasFile('image_location.' . $i) && in_array($i, $removeList) === false) {
+                    $image = $request->file('image_location.' . $i);
+                    $dimensions = getimagesize($image);
+
+                    $image_name = hexdec(uniqid()) . mt_rand(1000, 9999);
+
+                    $name = $image_name . '.' . $image->getClientOriginalExtension(); //getting the extension
+                    $image->storePubliclyAs('public/albums/galleries/' . $galleryName . '/', $name);
+                    $image_path = 'storage/albums/galleries/' . $galleryName . '/' . $name;
+                    $singleGalleryImage['image_location'] = $image_path;
+                    $singleGalleryImage['gallery_id'] = $gallery->id;
+                    $singleGalleryImage['image_caption'] = $request->image_caption[$i];
+                    $singleGalleryImage['width'] = $dimensions[0];
+                    $singleGalleryImage['height'] = $dimensions[1];
+                    if ($singleGalleryImage['height'] > 1500) {
+                        $singleGalleryImage['image_type'] = 1; //portrait image
+                    } else {
+                        $singleGalleryImage['image_type'] = 0; //landscape image
+                    }
+
+                    array_push($newGalleryImage, $singleGalleryImage);
+                }
+            }
+        }
+
+
+        DB::table('gallery_images')->insert($newGalleryImage);
+
+        return redirect()->back()->with('success', ' New Gallery created');
+
 
     }
 

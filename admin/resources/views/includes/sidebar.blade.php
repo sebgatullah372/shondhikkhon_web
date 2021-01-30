@@ -27,15 +27,15 @@
                     <a href="{{route('albums.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-images"></i>
                         <p>
-                            Album
+                            Albums
                         </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('galleries.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-file-image"></i>
                         <p>
-                            Gallery
+                            Galleries
                         </p>
                     </a>
                 </li>
@@ -43,7 +43,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-camera-retro"></i>
                         <p>
-                            Service
+                            Services
                         </p>
                     </a>
                 </li>
@@ -72,7 +72,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-comment"></i>
                         <p>
-                            Review
+                            Reviews
                         </p>
                     </a>
                 </li>
