@@ -18,13 +18,16 @@ Route::group(['middleware'=> ['auth']], function(){
     //====================Home Route==========================================================================
     Route::get('/home', 'HomeController@index')->name('home');
     //========================Album Routes====================================================================
-    Route::resource('albums', 'AlbumController', ['names'=> 'albums']);
+    Route::resource('/albums', 'AlbumController', ['names'=> 'albums']);
     //=========================================================================================================
 
     //=======================Gallery Routes=====================================================================
-    Route::post('gallery/store/{album}', 'GalleryController@storeGalleryByAlbum')->name('store_gallery_by_album');
-    Route::resource('galleries', 'GalleryController', ['names'=> 'galleries']);
+    Route::post('/gallery/store/{album}', 'GalleryController@storeGalleryByAlbum')->name('store_gallery_by_album');
+    Route::resource('/galleries', 'GalleryController', ['names'=> 'galleries']);
     //==========================================================================================================
+
+    //===========================Services Routes================================================================
+    Route::resource('/services', 'ServiceController', ['names'=> 'services']);
 
 
 });

@@ -1,17 +1,17 @@
 @extends('layouts.app')
-@section('title', "Albums")
+@section('title', "Services")
 @section('content')
 
     <div class="content-header" >
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Albums</h1>
+                    <h1 class="m-0 text-dark">Services</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item active">Albums</li>
+                        <li class="breadcrumb-item active">Services</li>
                     </ol>
                 </div>
             </div>
@@ -27,37 +27,36 @@
                 <div class="row">
                     <div class="col-sm-10">
                         <div class="info-box">
-                            <span class="info-box-icon bg-warning"><i class="fa fa-image"></i></span>
+                            <span class="info-box-icon bg-warning"><i class="fa fa-camera-retro"></i></span>
 
                             <div class="info-box-content">
-                                <span> <b>Total Number of Albums:</b> {{$albums->count()}}</span>
+                                <span> <b>Total Number of Services:</b> {{$services->count()}}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
                     </div>
                     <div class="col-sm-2 mb-2">
                         <button type="button" class="btn btn-info btn-block" data-toggle="modal"
-                                data-target="#albumCreateModal"><i class="fa fa-plus"></i> Add New
-                            Album
+                                data-target="#serviceCreateModal"><i class="fa fa-plus"></i> Add New
+                            Service
                         </button>
                     </div>
                 </div>
 
                 <div class="row">
-                    @foreach($albums as $album)
+                    @foreach($services as $service)
                         <div class="col-sm-12 col-md-6 col-lg-4">
                             <div class="card">
-                                <img class="card-img-top cover-image" src="{{asset($album->cover_photo)}}" alt="Card image cap">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{$album->name}}</h5>
-                                    <p class="card-text">{{$album->description}}</p>
+                                <img class="card-img-top cover-image" src="{{asset($service->cover_photo)}}" alt="Card image cap">
+                                <div class="card-body description-box">
+                                    <h5 class="card-title">{{$service->name}}</h5>
+                                    <p class="card-text">{{$service->description}}</p>
 
                                 </div>
                                 <div class="card-footer">
                                     <div class="float-right">
-                                    <a href="{{route('albums.show', $album->id)}}" class="btn btn-success">View</a>
-                                    <a href="{{route('albums.edit', $album->id)}}" class="btn btn-primary">Edit </a>
-                                    <a href="#" class="btn btn-danger">Delete</a>
+                                        <a href="{{route('services.edit', $service->id)}}" class="btn btn-primary">Edit </a>
+                                        <a href="#" class="btn btn-danger">Delete</a>
                                     </div>
                                 </div>
                             </div>
@@ -68,18 +67,18 @@
         </div>
 
 
-        <div class="modal fade" id="albumCreateModal">
+        <div class="modal fade" id="serviceCreateModal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">Create New Album</h4>
+                        <h4 class="modal-title">Create New Service</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
 
                     <!-- form start -->
-                    <form role="form" id="albumCreateForm" action="{{route('albums.store')}}" method="post"
+                    <form role="form" id="serviceCreateForm" action="{{route('services.store')}}" method="post"
                           enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
@@ -87,10 +86,10 @@
                                 <div class="col-sm-12">
                                     <!-- text input -->
                                     <div class="form-group">
-                                        <label for="name">Album Name</label>
+                                        <label for="name">Service Name</label>
                                         <input type="text"
                                                class="form-control @error('name') is-invalid @enderror"
-                                               placeholder="Enter Album Name"
+                                               placeholder="Enter Service Name"
                                                name="name" id="name" autocomplete="off">
                                         @error('name') <span
                                             class="text-danger float-right">{{$errors->first('name') }}</span> @enderror
@@ -98,37 +97,23 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="description">Album Description</label>
+                                        <label for="description">Service Description</label>
                                         <textarea name="description" id="description" rows="3" class="form-control"
                                                   placeholder="Enter description / optional"></textarea>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="service">Select Corresponding Service for this Album</label>
-                                        <select id="service" class="custom-select" name="service_id">
-                                            <option selected>Choose Service</option>
-                                            @foreach($services as $service)
-                                                <option value="{{$service->id}}">{{$service->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="custom-file">
                                             <input class="custom-file-input" type="file"
-                                                   onchange="previewAlbumCover(event)"
+                                                   onchange="previewServiceCover(event)"
                                                    name="cover_photo" id="cover_photo"
                                                    accept="image/png,image/jpeg, image/jpg">
-                                            <label class="custom-file-label" for="cover_photo">Choose Album
+                                            <label class="custom-file-label" for="cover_photo">Choose Service
                                                 Cover</label>
                                         </div>
                                         <span class="error" id="heightErrorMsg"></span>
@@ -163,8 +148,8 @@
 
 @push('push-script')
     <script>
-        /*Preview Album Cover Photo*/
-        let previewAlbumCover = function (event) {
+        /*Preview Service Cover Photo*/
+        let previewServiceCover = function (event) {
 
             let output = document.getElementById('preview_output');
 
@@ -180,13 +165,13 @@
                 imageHeight = this.height;
                 if (imageHeight > 1500) {
                     $('#heightErrorMsg').html('Maximum height for the cover image is 1500');
-                    $('#albumCreateForm').submit(function (e) {
+                    $('#serviceCreateForm').submit(function (e) {
                         //disable form submit
                         e.preventDefault();
                     });
                 } else {
                     $('#heightErrorMsg').empty();
-                    $('#albumCreateForm').submit(function (e) {
+                    $('#serviceCreateForm').submit(function (e) {
                         e.preventDefault();
                         //enable form submit
                         $(this).unbind('submit').submit();
@@ -209,7 +194,7 @@
         });
 
         $(document).ready(function () {
-            $('#albumCreateForm').validate({
+            $('#serviceCreateForm').validate({
                 rules: {
                     name: {
                         required: true,
@@ -223,11 +208,11 @@
                 },
                 messages: {
                     name: {
-                        required: "Please enter Album Name",
-                        maxlength: "Album name should be under 30 characters"
+                        required: "Please enter service name",
+                        maxlength: "Service name should be under 30 characters"
                     },
                     cover_photo: {
-                        required: "Cover Photo is required for Album",
+                        required: "Cover Photo is required for service",
                         accept: "Please upload jpg, jpeg or png file",
                         filesize: "File size should be under 3 mb"
                     },

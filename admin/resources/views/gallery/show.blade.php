@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Albums")
+@section('title', "Gallery Details")
 @push('push-style')
 
 @endpush

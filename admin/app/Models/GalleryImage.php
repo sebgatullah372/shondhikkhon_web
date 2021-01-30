@@ -8,7 +8,6 @@ class GalleryImage extends Model
 {
     protected $guarded = [];
 
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      *

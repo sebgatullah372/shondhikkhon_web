@@ -41,7 +41,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('services.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-camera-retro"></i>
                         <p>
                             Services

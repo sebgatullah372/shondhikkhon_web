@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', "Albums")
+@section('title', "Edit gallery")
 @push('push-style')
 
 @endpush
@@ -106,6 +106,7 @@
                                             <label class="custom-file-label" for="cover_photo">Choose Gallery
                                                 Cover</label>
                                         </div>
+                                        <span class="error" id="sizeErrorMsg"></span>
                                         <span class="error" id="heightErrorMsg"></span>
                                         @error('cover_photo') <span
                                             class="text-danger float-right">{{$errors->first('cover_photo') }}</span> @enderror
@@ -116,7 +117,7 @@
                                 <div class="col-sm-12">
                                     <img id="preview_output" class="preview_image"
                                          src="{{asset($gallery->cover_photo)}}"
-                                         alt="Album Cover"
+                                         alt="Gallery Cover"
                                     >
                                 </div>
                             </div>
@@ -223,19 +224,41 @@
             let imageHeight = 0;
             img.onload = function () {
                 imageHeight = this.height;
-                if (imageHeight > 1500) {
-                    $('#heightErrorMsg').html('Maximum height for the cover image is 1500');
-                    $('#galleryEditForm').submit(function (e) {
+                let file_size = event.target.files[0].size;
+                if (imageHeight > 1500 && file_size > 3072000) {
+                    $('#heightErrorMsg').html('Maximum height for the cover image is 1500 and ');
+                    $('#sizeErrorMsg').html('&nbsp' + 'the file size should be under 3 mb');
+                    $('#galleryEditForm').submit(function(e){
                         //disable form submit
                         e.preventDefault();
                     });
-                } else {
+
+
+                } else if (imageHeight <= 1500 && file_size <= 3072000) {
                     $('#heightErrorMsg').empty();
-                    $('#galleryEditForm').submit(function (e) {
+                    $('#sizeErrorMsg').empty();
+                    $('#galleryEditForm').submit( function(e){
                         e.preventDefault();
                         //enable form submit
                         $(this).unbind('submit').submit();
                     });
+
+                }else if(imageHeight > 1500 && file_size <= 3072000){
+                    $('#heightErrorMsg').html('Maximum height for the cover image is 1500 ');
+                    $('#sizeErrorMsg').empty();
+                    $('#galleryEditForm').submit(function(e){
+                        //disable form submit
+                        e.preventDefault();
+                    });
+
+                }else if(imageHeight <= 1500 && file_size > 3072000){
+                    $('#heightErrorMsg').empty();
+                    $('#sizeErrorMsg').html('File size should be under 3 mb');
+                    $('#galleryEditForm').submit(function(e){
+                        //disable form submit
+                        e.preventDefault();
+                    });
+
                 }
                 URL.revokeObjectURL(img.src)
             };
@@ -360,6 +383,8 @@
 
         }
 
+
+
         $(document).ready(function () {
             $('#galleryEditForm').validate({
                 rules: {
@@ -373,8 +398,7 @@
                     cover_photo: {
 
                         accept: "image/jpg,image/jpeg,image/png",
-                        filesize: 3072000,
-                        //max_height: 1500,
+
                     },
 
                 },
@@ -388,7 +412,6 @@
                     },
                     cover_photo: {
                         accept: "Please upload jpg, jpeg or png file",
-                        filesize: "File size should be under 3 mb",
 
                     },
 
