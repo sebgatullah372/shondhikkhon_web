@@ -387,7 +387,6 @@
                         required: "Please select album for this gallery",
                     },
                     cover_photo: {
-
                         accept: "Please upload jpg, jpeg or png file",
                         filesize: "File size should be under 3 mb",
 
