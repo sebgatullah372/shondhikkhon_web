@@ -51,7 +51,7 @@
 
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{route('about.index')}}" class="nav-link">
                         <i class="nav-icon fa fa-address-card"></i>
                         <p>
                             About Information
