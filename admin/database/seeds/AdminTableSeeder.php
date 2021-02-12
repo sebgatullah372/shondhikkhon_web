@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminTableSeeder extends Seeder
 {
@@ -12,11 +14,17 @@ class AdminTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('admins')->insert([
-            'first_name' => 'Arnob',
+//        DB::table('admins')->insert([
+//            'first_name' => 'Arnob',
+//            'last_name' => 'Khan',
+//            'email' => 'arnobkhan372@gmail.com',
+//            'password' => \Illuminate\Support\Facades\Hash::make('123456')
+//        ]);
+
+        Admin::create(['first_name' => 'Arnob',
             'last_name' => 'Khan',
             'email' => 'arnobkhan372@gmail.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('123456')
+            'password' => Hash::make('123456')
         ]);
     }
 }

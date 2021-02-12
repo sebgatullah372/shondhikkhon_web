@@ -25,7 +25,9 @@
             <div class="container">
 
                 <div class="card">
+                    @if(isset($about->image))
                     <img class="card-img-top" src="{{asset($about->image)}}" alt="Card image cap">
+                    @endif
                     <div class="card-body description-box">
                         <h5 class="card-title">About details</h5>
                         <p class="card-text">{{$about->about_text}}</p>
@@ -47,6 +49,26 @@
 @endsection
 
 @push('push-script')
+    <script>
 
+        $(document).ready(function () {
+            $('#aboutEditForm').validate({
+                rules: {
+                    about_text: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter about information",
+
+                    },
+
+                },
+
+            });
+
+        });
+    </script>
 @endpush
 
