@@ -10,11 +10,14 @@ class PricingPlanController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
+     *
      */
     public function index()
     {
-        //
+        $pricing_plans = PricingPlan::all();
+        return view('pricing_plan.index', compact('pricing_plans'));
     }
 
     /**
@@ -30,12 +33,22 @@ class PricingPlanController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|max:70',
+            'price' => 'required',
+            'discount' => 'required',
+            'final_price' => 'required',
+        ]);
+        $data = $request->except('_token', 'files');
+        PricingPlan::create($data);
+        return redirect()->back()->with('success', ' New pricing plan created');
     }
 
     /**

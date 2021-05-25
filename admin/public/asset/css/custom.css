@@ -42,6 +42,18 @@
     max-height: 200px;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /**Media queries**/
 @media screen and (max-width: 480px) {
     .preview_image{
