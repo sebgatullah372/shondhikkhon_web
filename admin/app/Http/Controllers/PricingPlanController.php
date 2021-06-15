@@ -65,24 +65,35 @@ class PricingPlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PricingPlan  $pricingPlan
-     * @return \Illuminate\Http\Response
+     * @param PricingPlan $pricingPlan
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     *
      */
     public function edit(PricingPlan $pricingPlan)
     {
-        //
+        return view('pricing_plan.edit', compact('pricingPlan'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PricingPlan  $pricingPlan
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param PricingPlan $pricingPlan
+     * @return \Illuminate\Http\RedirectResponse
+     *
      */
     public function update(Request $request, PricingPlan $pricingPlan)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:70',
+            'price' => 'required',
+            'discount' => 'required',
+            'final_price' => 'required',
+        ]);
+        $data = $request->except('_token', '_method');
+        $pricingPlan->update($data);
+        return redirect()->back()->with('success', ' Pricing plan updated');
+
     }
 
     /**
