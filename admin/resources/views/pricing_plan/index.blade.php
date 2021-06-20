@@ -31,7 +31,9 @@
 
                             <div class="info-box-content">
                                 <span> <b>Total Number of Pricing Plans:</b> {{$pricing_plans->count()}}</span>
+
                             </div>
+
                             <!-- /.info-box-content -->
                         </div>
                     </div>

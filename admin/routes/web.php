@@ -42,6 +42,10 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::resource('pricing-plan', 'PricingPlanController', ['names' => 'pricing_plans']);
     //=====================================================================================================
 
+    //===========================Services Routes================================================================
+    Route::resource('/slider-images', 'SliderImageController', ['names'=> 'slider_images']);
+    //==========================================================================================================
+
 
 });
 
