@@ -111,7 +111,7 @@
                                     <div class="form-group">
                                         <label for="service">Select Corresponding Service for this Album</label>
                                         <select id="service" class="custom-select" name="service_id">
-                                            <option selected>Choose Service</option>
+                                            <option value="" selected>Choose Service</option>
                                             @foreach($services as $service)
                                                 <option value="{{$service->id}}">{{$service->name}}</option>
                                             @endforeach

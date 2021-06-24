@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             AboutTableSeeder::class,
             AdminTableSeeder::class,
             ContactTableSeeder::class,
+            SiteSettingTableSeeder::class
         ]);
     }
 }
