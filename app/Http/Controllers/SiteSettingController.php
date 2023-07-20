@@ -44,6 +44,7 @@ class SiteSettingController extends Controller
     public function update(Request $request, SiteSetting $site_setting)
     {
         $request->validate([
+            'company_name' => 'required',
             'tagline' => 'required',
             'logo' => 'image|mimes:jpeg,jpg,png|max:3072'
         ]);

@@ -38,8 +38,12 @@ Route::group(['middleware'=> ['auth']], function(){
     Route::resource('/contact', 'ContactController', ['names'=> 'contact'])->only(['index' , 'update']);
     //============================================================================================================
 
+    //===============================Review Routes==================================================
+    Route::resource('/reviews', 'ReviewController', ['names' => 'reviews']);
+    //=====================================================================================================
+
     //===============================Pricing plan Routes==================================================
-    Route::resource('pricing-plan', 'PricingPlanController', ['names' => 'pricing_plans']);
+    Route::resource('/pricing-plans', 'PricingPlanController', ['names' => 'pricing_plans']);
     //=====================================================================================================
 
     //===========================Slider Images Routes================================================================

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="#"><b>{{$siteSettings->company_name}}</b> Admin</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">

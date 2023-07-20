@@ -36,6 +36,18 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="edit_company_name">Company Name</label>
+                                        <input type="text"
+                                               class="form-control @error('company_name') is-invalid @enderror"
+                                               placeholder="Enter Company Name"
+                                               name="company_name" id="edit_company_name" value="{{$site_setting->company_name}}" autocomplete="off">
+                                        @error('company_name') <span
+                                            class="text-danger float-right">{{$errors->first('company_name') }}</span> @enderror
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="custom-file">
                                             <input class="custom-file-input" type="file"
@@ -115,6 +127,9 @@
         $(document).ready(function () {
             $('#siteSettingsEditForm').validate({
                 rules: {
+                    company_name: {
+                      required: true,
+                    },
                     tagline: {
                         required: true,
 
@@ -125,8 +140,12 @@
                     }
                 },
                 messages: {
+                    company_name: {
+                        required: "Please enter Company name",
+
+                    },
                     tagline: {
-                        required: "Please enter about information",
+                        required: "Please enter tagline of your company",
 
                     },
                     logo: {

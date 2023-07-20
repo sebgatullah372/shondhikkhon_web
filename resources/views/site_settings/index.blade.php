@@ -25,6 +25,7 @@
             <div class="container">
 
                 <div class="card">
+                    <h2>{{$site_settings->company_name}}</h2>
                     @if(isset($site_settings->logo))
 
                         <img class="card-img-top preview_image" src="{{asset($site_settings->logo)}}" alt="Card image cap">

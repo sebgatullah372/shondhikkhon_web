@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PhpIncludePathManager">
+  <component name="ChangeListManager">
+    <list default="true" id="ef632eda-18d1-4b5e-8d28-98f86084f971" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/admin.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReviewController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SiteSettingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SiteSettingController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/includes/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/includes/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/site_settings/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site_settings/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/site_settings/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/site_settings/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/composer" />
@@ -104,10 +135,53 @@
       <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />
-  <component name="PhpUnit">
-    <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
-    </phpunit_settings>
+  <component name="ProjectId" id="2QOFqcAZ6B5uS1Zn3VaSWohV0Pm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/shondhikkhon_admin/resources/views&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\shondhikkhon_admin\resources\views" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ef632eda-18d1-4b5e-8d28-98f86084f971" name="Changes" comment="" />
+      <created>1685216914729</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1685216914729</updated>
+      <workItem from="1685216918564" duration="25000" />
+      <workItem from="1685217722003" duration="826000" />
+      <workItem from="1685267545481" duration="11000" />
+      <workItem from="1685267766543" duration="552000" />
+      <workItem from="1685270362264" duration="9000" />
+      <workItem from="1685303974322" duration="897000" />
+      <workItem from="1685467281132" duration="2818000" />
+      <workItem from="1689878965747" duration="638000" />
+      <workItem from="1689879928344" duration="11995000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
