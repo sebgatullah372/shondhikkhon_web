@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-5 offset-1">
                 <div class="mb-0">
-                    <h3 class="footer-heading mb-4">ক্ষণের মাধুর্যকে ধারণ করতে সন্ধিক্ষণ তৈরী আপনাদের জন্য !</h3>
+                    <h3 class="footer-heading mb-4">{{$siteSettings->tagline}}</h3>
                     <!-- <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Saepe pariatur reprehenderit vero atque, consequatur id
@@ -17,13 +17,13 @@
             <div class="col-lg-5 offset-1 mb-0 mb-lg-0">
                 <div>
                     <span class="footer-heading mb-0">Follow Us on</span>
-                    <a href="https://www.facebook.com/shondhikkhon" class="pl-4 pr-3"
+                    <a href="{{$contactInformation->facebook_link}}" class="pl-4 pr-3"
                     ><span class="icon-facebook"></span
                         ></a>
-                    <a href="https://twitter.com/shondhikkhon" class="pl-3 pr-3"
+                    <a href="{{$contactInformation->twitter_link}}" class="pl-3 pr-3"
                     ><span class="icon-twitter"></span
                         ></a>
-                    <a href="https://www.instagram.com/shondhikkhon/" class="pl-3 pr-3"
+                    <a href="{{$contactInformation->instagram_link}}" class="pl-3 pr-3"
                     ><span class="icon-instagram"></span
                         ></a>
                 </div>
@@ -42,7 +42,7 @@
                         document.write(new Date().getFullYear());
                     </script>
                     All rights reserved by
-                    <a href="#" target="_blank">Shondhikkhon</a>
+                    <a href="#" target="_blank">{{$siteSettings->company_name}}</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </p>
             </div>

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Album;
+use App\Models\Contact;
+use App\Models\SiteSetting;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -26,8 +30,16 @@ class AppServiceProvider extends ServiceProvider
     {
 
         View::composer('*', function($view){
-            $adminUrl = "http://localhost:8001/";
-            $view->with('adminUrl', $adminUrl);
+            $adminUrl = Config::get('admin_panel.url');
+            $siteSettings = SiteSetting::find(1);
+            $contactInformation = Contact::find(1);
+            $view->with('adminUrl', $adminUrl)
+                ->with('siteSettings', $siteSettings)
+                ->with('contactInformation' , $contactInformation);
+        });
+        View::composer('includes.header', function($view){
+            $albums = Album::select('id', 'name')->get();
+            $view->with('albums', $albums);
         });
     }
 }

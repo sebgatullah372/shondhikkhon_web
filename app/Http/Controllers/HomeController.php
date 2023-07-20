@@ -28,8 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         $sliderImages = SliderImage::activeStatus()->get();
-        $services = Service::activeStatus()->get();
-        $galleries = Gallery::showOnHome()->get();
+        $services = Service::with('album')->activeStatus()->get();
+        $galleries = Gallery::withCount('gallery_images')->showOnHome()->get();
         $reviews= Review::activeStatus()->get();
         return view('home', compact('sliderImages', 'services', 'galleries', 'reviews'));
     }

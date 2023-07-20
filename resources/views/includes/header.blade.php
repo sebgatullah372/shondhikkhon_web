@@ -4,7 +4,7 @@
             <div class="col-6 col-xl-2">
                 <h1 class="mb-0">
 
-                    <a href="index.html"> <img src="images/logo/logo.png" alt="" height="70"/></a>
+                    <a href="index.html"> <img src="{{$adminUrl.$siteSettings->logo}}" alt="" height="70"/></a>
                 </h1>
             </div>
             <div class="col-10 col-md-8 d-none d-xl-block">
@@ -13,22 +13,18 @@
                     role="navigation"
                 >
                     <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
-                        <li class="active"><a href="index.html">Home</a></li>
+                        <li class="active"><a href="{{route('home')}}">Home</a></li>
                         <li class="has-children">
                             <a href="#">Albums</a>
                             <ul class="dropdown">
-                                <li><a href="hindu_wedding_albums.html">Hindu Wedding Documentation</a></li>
-                                <li><a href="akhd_albums.html">Akhd</a></li>
-                                <li><a href="holud_albums.html">Holud</a></li>
-                                <li><a href="birthday_albums.html">Birthday Party</a></li>
-                                <li><a href="outdoor_albums.html">Outdoor</a></li>
-                                <li><a href="bashor_raat_albums.html">Bashor Raat</a></li>
-                                <li><a href="cinematography.html">Cinematorgraphy</a></li>
+                                @foreach($albums as $album)
+                                    <li><a href="{{route('albums.show', $album->id)}}">{{$album->name}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <!-- <li><a href="services.html">Services</a></li> -->
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{route('about.index')}}">About</a></li>
+                        <li><a href="{{route('contact.index')}}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -40,22 +36,22 @@
                         data-class="social"
                     >
                         <li>
-                            <a href="https://www.facebook.com/shondhikkhon" class="pl-0 pr-3"
+                            <a href="{$contactInformation->facebook_link}}" class="pl-0 pr-3"
                             ><span class="icon-facebook"></span
                                 ></a>
                         </li>
                         <li>
-                            <a href="https://twitter.com/shondhikkhon" class="pl-3 pr-3"
+                            <a href="{{$contactInformation->twitter_link}}" class="pl-3 pr-3"
                             ><span class="icon-twitter"></span
                                 ></a>
                         </li>
                         <li>
-                            <a href="https://www.instagram.com/shondhikkhon/" class="pl-3 pr-3"
+                            <a href="{{$contactInformation->instagram_link}}" class="pl-3 pr-3"
                             ><span class="icon-instagram"></span
                                 ></a>
                         </li>
                         <li>
-                            <a href="https://www.youtube.com/channel/UC-VTTXpovDy6NRbCfJBCqdw" class="pl-3 pr-3"
+                            <a href="{$contactInformation->youtube_link}}" class="pl-3 pr-3"
                             ><span class="icon-youtube-play"></span
                                 ></a>
                         </li>

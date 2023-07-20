@@ -12,10 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
+    //return view('welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/albums/{id}', 'AlbumController@show')->name('albums.show');
+Route::get('/galleries/{id}', 'GalleryController@show')->name('galleries.show');
+Route::get('/about', 'AboutController@index')->name('about.index');
+Route::get('/contact', 'ContactController@index')->name('contact.index');
